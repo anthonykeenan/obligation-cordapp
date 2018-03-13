@@ -1,8 +1,11 @@
 package net.corda.examples.obligation
 
 import net.corda.core.contracts.Amount
+import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.messaging.CordaRPCOps
+import net.corda.core.node.services.Vault
+import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.utilities.OpaqueBytes
 import net.corda.core.utilities.getOrThrow
 import net.corda.examples.obligation.flows.IssueObligation
@@ -51,6 +54,14 @@ class ObligationApi(val rpcOps: CordaRPCOps) {
     @Path("obligations")
     @Produces(MediaType.APPLICATION_JSON)
     fun obligations() = rpcOps.vaultQuery(Obligation::class.java).states
+
+    @GET
+    @Path("obligations-used")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun obligationsAll(): List<StateAndRef<Obligation>> {
+        val consumedCriteria = QueryCriteria.VaultQueryCriteria(Vault.StateStatus.CONSUMED)
+        return rpcOps.vaultQueryByCriteria(consumedCriteria, Obligation::class.java).states
+    }
 
     @GET
     @Path("cash")

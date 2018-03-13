@@ -29,8 +29,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">{{demoApp.thisNode}}</a>
         </div>
-        <button ng-click="demoApp.openCreateIOUModal()" type="button" class="btn btn-primary navbar-btn">Create IOU</button>
-        <button ng-click="demoApp.openIssueCashModal()" type="button" class="btn btn-primary navbar-btn">Issue cash</button>
+        <button ng-click="demoApp.openCreateIOUModal()" type="button" class="btn btn-primary navbar-btn">Create IOU
+        </button>
+        <button ng-click="demoApp.openIssueCashModal()" type="button" class="btn btn-primary navbar-btn">Issue cash
+        </button>
         <button ng-click="demoApp.refresh()" type="button" class="btn btn-default navbar-btn"><span
                 class="glyphicon glyphicon-refresh"></span></button>
     </div>
@@ -232,15 +234,17 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="iou in demoApp.ious">
-                        <td class="vert-align">{{iou.lender.substring(0, 10)}}</td>
-                        <td class="vert-align">{{iou.borrower.substring(0, 10)}}</td>
+                        <td class="vert-align">{{iou.lender.slice(-10)}}</td>
+                        <td class="vert-align">{{iou.borrower.slice(-10)}}</td>
                         <td class="vert-align">{{iou.amount}}</td>
                         <td class="vert-align">{{iou.paid}}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <button ng-click="demoApp.openTransferModal(iou.linearId.id)" type="button" class="btn btn-primary">Transfer
+                                <button ng-click="demoApp.openTransferModal(iou.linearId.id)" type="button"
+                                        class="btn btn-primary">Transfer
                                 </button>
-                                <button ng-click="demoApp.openSettleModal(iou.linearId.id)" type="button" class="btn btn-primary">Settle
+                                <button ng-click="demoApp.openSettleModal(iou.linearId.id)" type="button"
+                                        class="btn btn-primary">Settle
                                 </button>
                             </div>
                         </td>
@@ -249,9 +253,42 @@
                 </table>
             </div>
         </div>
+
         <div class="col-md-1"></div>
     </div>
-</div>
 
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div ng-show="demoApp.usedious.length" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Consumed IOU States:</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Paid</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="iou in demoApp.usedious">
+                        <td class="vert-align">{{iou.lender.slice(-10)}}</td>
+                        <td class="vert-align">{{iou.borrower.slice(-10)}}</td>
+                        <td class="vert-align">{{iou.amount}}</td>
+                        <td class="vert-align">{{iou.paid}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 </body>
 </html>

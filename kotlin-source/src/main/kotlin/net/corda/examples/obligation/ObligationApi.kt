@@ -182,3 +182,4 @@ class ObligationApi(val rpcOps: CordaRPCOps) {
         return Response.status(status).entity(message).build()
     }
 }
+

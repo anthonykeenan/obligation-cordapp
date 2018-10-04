@@ -78,6 +78,15 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             adminAddress("localhost:10043")
         }
         cordapps = []
+        extraConfig = [
+                "dataSourceProperties.dataSourceClassName"  : "org.postgresql.ds.PGSimpleDataSource",
+                "dataSourceProperties.dataSource.url"       : "jdbc:postgresql://localhost:5432/notary",
+                "dataSourceProperties.dataSource.user"      : System.getenv('POSTGRES_USER'),
+                "dataSourceProperties.dataSource.password"  : System.getenv('POSTGRES_PASSWORD'),
+                "database.transactionIsolationLevel"        : "READ_COMMITTED",
+                "database.runMigration"                     : "true",
+                "jarDirs"                                   : ["../../../../lib"]
+        ]
     }
     node {
         name "O=PartyA,L=London,C=GB"
@@ -89,6 +98,15 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         webPort 10007
         cordapps = ["$corda_release_group:corda-finance:$corda_release_version"]
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = [
+                "dataSourceProperties.dataSourceClassName"  : "org.postgresql.ds.PGSimpleDataSource",
+                "dataSourceProperties.dataSource.url"       : "jdbc:postgresql://localhost:5432/partya",
+                "dataSourceProperties.dataSource.user"      : System.getenv('POSTGRES_USER'),
+                "dataSourceProperties.dataSource.password"  : System.getenv('POSTGRES_PASSWORD'),
+                "database.transactionIsolationLevel"        : "READ_COMMITTED",
+                "database.runMigration"                     : "true",
+                "jarDirs"                                   : ["../../../../lib"]
+        ]
     }
     node {
         name "O=PartyB,L=New York,C=US"
@@ -100,6 +118,15 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         webPort 10010
         cordapps = ["$corda_release_group:corda-finance:$corda_release_version"]
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = [
+                "dataSourceProperties.dataSourceClassName"  : "org.postgresql.ds.PGSimpleDataSource",
+                "dataSourceProperties.dataSource.url"       : "jdbc:postgresql://localhost:5432/partyb",
+                "dataSourceProperties.dataSource.user"      : System.getenv('POSTGRES_USER'),
+                "dataSourceProperties.dataSource.password"  : System.getenv('POSTGRES_PASSWORD'),
+                "database.transactionIsolationLevel"        : "READ_COMMITTED",
+                "database.runMigration"                     : "true",
+                "jarDirs"                                   : ["../../../../lib"]
+        ]
     }
     node {
         name "O=PartyC,L=Paris,C=FR"
@@ -111,5 +138,14 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         webPort 10013
         cordapps = ["$corda_release_group:corda-finance:$corda_release_version"]
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = [
+                "dataSourceProperties.dataSourceClassName"  : "org.postgresql.ds.PGSimpleDataSource",
+                "dataSourceProperties.dataSource.url"       : "jdbc:postgresql://localhost:5432/partyc",
+                "dataSourceProperties.dataSource.user"      : System.getenv('POSTGRES_USER'),
+                "dataSourceProperties.dataSource.password"  : System.getenv('POSTGRES_PASSWORD'),
+                "database.transactionIsolationLevel"        : "READ_COMMITTED",
+                "database.runMigration"                     : "true",
+                "jarDirs"                                   : ["../../../../lib"]
+        ]
     }
 }

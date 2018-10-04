@@ -17,13 +17,14 @@ angular.module('demoAppModule').controller('CreateObligationModalCtrl', function
             const amount = createObligationModal.form.amount;
             const currency = createObligationModal.form.currency;
             const party = createObligationModal.form.counterparty;
+            const remark = createObligationModal.form.remark;
 
             $uibModalInstance.close();
 
             // We define the Obligation creation endpoint.
             const issueObligationEndpoint =
                 apiBaseURL +
-                `issue-obligation?amount=${amount}&currency=${currency}&party=${party}`;
+                `issue-obligation?amount=${amount}&currency=${currency}&party=${party}&remark=${remark}`;
 
             // We hit the endpoint to create the Obligation and handle success/failure responses.
             $http.get(issueObligationEndpoint).then(

@@ -63,6 +63,7 @@ class ObligationApi(val rpcOps: CordaRPCOps) {
                             possiblyWellKnownLender,
                             possiblyWellKnownBorrower,
                             state.paid,
+                           "",
                             state.linearId)
                 }
     }
@@ -105,7 +106,8 @@ class ObligationApi(val rpcOps: CordaRPCOps) {
     @Path("issue-obligation")
     fun issueObligation(@QueryParam(value = "amount") amount: Int,
                         @QueryParam(value = "currency") currency: String,
-                        @QueryParam(value = "party") party: String): Response {
+                        @QueryParam(value = "party") party: String,
+                        @QueryParam(value = "remark") remark: String): Response {
         // 1. Get party objects for the counterparty.
         val lenderIdentity = rpcOps.partiesFromName(party, exactMatch = false).singleOrNull()
                 ?: throw IllegalStateException("Couldn't lookup node identity for $party.")
@@ -119,7 +121,8 @@ class ObligationApi(val rpcOps: CordaRPCOps) {
                     IssueObligation.Initiator::class.java,
                     issueAmount,
                     lenderIdentity,
-                    true
+                    true,
+                    remark
             )
 
             val result = flowHandle.use { it.returnValue.getOrThrow() }

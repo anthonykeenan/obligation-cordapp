@@ -1,6 +1,7 @@
 package net.corda.examples.obligation
 
 import net.corda.core.contracts.Amount
+import net.corda.core.contracts.BelongsToContract
 import net.corda.core.contracts.LinearState
 import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.crypto.NullKeys
@@ -16,6 +17,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
 
+@BelongsToContract(ObligationContract::class)
 data class Obligation(val amount: Amount<Currency>,
                       val lender: AbstractParty,
                       val borrower: AbstractParty,

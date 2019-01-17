@@ -153,8 +153,8 @@ public class TransferObligation {
         @Suspendable
         private Obligation createOutputObligation(Obligation inputObligation, FlowSession newLenderSession) throws FlowException {
             if (anonymous) {
-                final SwapIdentitiesFlow.AnonymousResult anonymousIdentitiesResult = subFlow(new SwapIdentitiesFlow(newLenderSession));
-                return inputObligation.withNewLender(anonymousIdentitiesResult.getTheirIdentity());
+                final HashMap<Party, AnonymousParty> anonymousIdentitiesResults = subFlow(new SwapIdentitiesFlow(newLenderSession));
+                return inputObligation.withNewLender(anonymousIdentitiesResults.get(newLender));
             } else {
                 return inputObligation.withNewLender(newLender);
             }

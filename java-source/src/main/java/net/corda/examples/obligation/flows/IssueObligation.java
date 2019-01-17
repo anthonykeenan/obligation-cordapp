@@ -100,8 +100,8 @@ public class IssueObligation {
         @Suspendable
         private Obligation createObligation(FlowSession lenderSession) throws FlowException {
             if (anonymous) {
-                final SwapIdentitiesFlow.AnonymousResult anonymousIdentitiesResult = subFlow(new SwapIdentitiesFlow(lenderSession));
-                return new Obligation(amount, anonymousIdentitiesResult.getTheirIdentity(), anonymousIdentitiesResult.getOurIdentity());
+                final HashMap<Party, AnonymousParty> anonymousIdentitiesResults = subFlow(new SwapIdentitiesFlow(lenderSession));
+                return new Obligation(amount, anonymousIdentitiesResults.get(lender), anonymousIdentitiesResults.get(getOurIdentity()));
             } else {
                 return new Obligation(amount, lender, getOurIdentity());
             }
